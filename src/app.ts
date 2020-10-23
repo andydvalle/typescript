@@ -1,23 +1,35 @@
-// // can still access DOM elements, query, just like JS
+//classes
+class Invoice {
+  client: string;
+  details: string;
+  amount: number;
 
-// // const anchor = document.querySelector("a");
-// const anchor = document.querySelector("a")!; //add an ! to override the warning, only if you as a dev know it will return something
-// console.log(anchor.href)
+  constructor(c: string, d: string, a: number) {
+    this.client = c;
+    this.details = d;
+    this.amount = a;
+  }
 
-// // console.log(anchor.href); // will warn you if you don't have a !
-// //errors with "this object can possibly be null" because type script doesn't know if there is an anchor tag in development. so it'll warn you
+  format() {
+    return `${this.client} owes $${this.amount} for ${this.details}`;
+  }
+}
 
-// // if(anchor){
-// //     console.log(anchor.href)
-// // }
+const invOne = new Invoice("mario", "work on the mario website", 100);
+const invTwo = new Invoice("luigi", "work on the luigi website", 150);
 
-// const form = document.querySelector('form')!; // hover will say HTMLFormElement
-// const form = document.querySelector('.new-item-form')!; //hover will say Element
+let invoices: Invoice[] = []; // only adds instances from the Invoice class
+// invoices.push("hello") // error
+invoices.push(invOne);
+invoices.push(invTwo);
+console.log(invOne, invTwo);
+console.log(invoices);
 
-// Type casting
+// can access the different properties of these public Invoice Objects
+invOne.client = "yoshi";
+invTwo.amount = 200;
+
 const form = document.querySelector(".new-item-form") as HTMLFormElement;
-// now we will have all the right methods and properties now with intellisense
-// console.log(form.children);
 
 // inputs
 const type = document.querySelector("#type") as HTMLSelectElement;
@@ -27,10 +39,6 @@ const amount = document.querySelector("#amount") as HTMLInputElement;
 
 form.addEventListener("submit", (e: Event) => {
   e.preventDefault();
-  console.log(
-    type.value, // outputs as a string
-    tofrom.value, // outputs as a string
-    details.value, // outputs as a string
-    amount.valueAsNumber //outputs as a number
-  );
+
+  console.log(type.value, tofrom.value, details.value, amount.valueAsNumber);
 });
